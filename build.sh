@@ -27,9 +27,9 @@ echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
 su builder -c "abuild-keygen -a -n"
 cp /home/builder/.abuild/*.pub /etc/apk/keys/
 
-# scripts de build do Alpine (mesma versão do sistema)
+# scripts de build do Alpine (usando espelho oficial do GitHub para evitar erro 404)
 rm -rf /home/builder/aports
-su builder -c "git clone --depth=1 -b ${ALPINE_V#v}-stable https://gitlab.alpinelinux.org/alpine/aports.git /home/builder/aports"
+su builder -c "git clone --depth=1 -b ${ALPINE_V#v}-stable https://github.com/alpinelinux/aports.git /home/builder/aports"
 
 # perfil SlotOS + overlay
 cp "$KIT/mkimg.slotos.sh"        /home/builder/aports/scripts/
